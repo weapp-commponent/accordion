@@ -1,0 +1,15 @@
+.accordion {
+  background: #fff;
+}
+
+.accordion__item_label {
+  position: relative;
+}
+
+.accordion__item_scroll {
+  transition: all .3s ease-in-out;
+}
+
+.scroll__content {
+  padding: 10px 20px;
+}

@@ -1,0 +1,29 @@
+<view class="accordion">
+  <view
+    wx:for="{{accordionList}}"
+    wx:key="index"
+    wx:for-index="index"
+    wx:for-item="accdionItem"
+    class="accordion__item">
+    <!-- label S -->
+    <view
+      bind:tap="check"
+      data-index="{{index}}"
+      style="height:{{labelHeight+'px'}}; line-height:{{labelHeight+'px'}}; background:{{accdionItem.background}};"
+      class="accordion__item_label label-class">
+      <text class="label__text">{{accdionItem.label}}</text>
+    </view>
+    <!-- label E -->
+
+    <scroll-view
+      scroll-y="{{true}}"
+      style="height:{{accdionItem.contentHeight+'px'}}"
+      class="accordion__item_scroll"
+      >
+      <view
+        style="background:{{accdionItem.background}};"
+        class="scroll__content">
+      </view>
+      </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,5 @@
+<comp
+  list="{{list}}"
+  colorList="{{colorList}}"
+  label-class="leabel"
+  ></comp>
