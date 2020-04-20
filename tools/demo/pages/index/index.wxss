@@ -1,4 +1,9 @@
 .leabel {
-  padding: 0 10px;
-  color: red;
+  padding: 10px;
+  color: blue;
+}
+
+.content {
+  padding: 10px;
+  color: brown;
 }

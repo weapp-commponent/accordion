@@ -1,5 +1,7 @@
 Page({
   data: {
+    width: 320,
+    height: 300,
     list: [
       {
         label: '第yi条',
@@ -28,5 +30,15 @@ Page({
         color: '#fff',
       }
     ]
+  },
+  changeWidth() {
+    this.setData({
+      width: 300
+    })
+  },
+  changeHeight() {
+    this.setData({
+      height: 500
+    })
   }
 })

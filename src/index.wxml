@@ -1,4 +1,4 @@
-<view class="accordion">
+<view style="width: {{width}}px; height: {{height}}px" class="accordion {{direction === 'horizontal' ? 'accordion--horizontal' : 'accordion--vertical'}}">
   <view
     wx:for="{{accordionList}}"
     wx:key="index"
@@ -9,20 +9,25 @@
     <view
       bind:tap="check"
       data-index="{{index}}"
-      style="height:{{labelHeight+'px'}}; line-height:{{labelHeight+'px'}}; background:{{accdionItem.background}};"
-      class="accordion__item_label label-class">
-      <text class="label__text">{{accdionItem.label}}</text>
+      style="width:{{accdionItem.label.width}}px; height:{{accdionItem.label.height}}px; background:{{accdionItem.background}}; transition:all {{durationTemp}}s ease-in-out;"
+      class="accordion__item_label {{direction === 'horizontal' ? 'accordion__item_label--horizontal' : 'accordion__item_label--vertical'}} label-class">
+      <text class="label__text">{{accdionItem.label.text}}</text>
+      <cover-image
+        src="{{arrowImg}}"
+        style="transition:all {{durationTemp}}s ease-in-out;"
+        class="label__image {{direction === 'horizontal' ? 'label__image--horizontal' : 'label__image--vertical'}} {{currentIndexTemp == index ? 'active' : ''}}"></cover-image>
+      <!-- <view class="label__icon"></view> -->
     </view>
     <!-- label E -->
 
     <scroll-view
       scroll-y="{{true}}"
-      style="height:{{accdionItem.contentHeight+'px'}}"
+      style="width:{{accdionItem.content.width}}px; height:{{accdionItem.content.height}}px; background:{{accdionItem.background}};transition:all {{durationTemp}}s ease-in-out;"
       class="accordion__item_scroll"
       >
       <view
-        style="background:{{accdionItem.background}};"
-        class="scroll__content">
+        class="scroll__content content-class">
+        {{accdionItem.content.text}}
       </view>
       </scroll-view>
   </view>

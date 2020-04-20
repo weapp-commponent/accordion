@@ -1,5 +1,12 @@
 <comp
   list="{{list}}"
+  width="{{width}}"
+  height="{{height}}"
   colorList="{{colorList}}"
   label-class="leabel"
-  ></comp>
+  content-class="content"
+  >
+      <!-- direction="horizontal" -->
+  </comp>
+  <view bind:tap="changeWidth">改变宽度</view>
+  <view bind:tap="changeHeight">改变高度</view>

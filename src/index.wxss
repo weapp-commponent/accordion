@@ -2,14 +2,47 @@
   background: #fff;
 }
 
+.accordion--horizontal {
+  display: flex;
+}
+
+.accordion--horizontal .accordion__item {
+  display: flex;
+} 
+
+
 .accordion__item_label {
   position: relative;
+  box-sizing: border-box !important;
 }
 
-.accordion__item_scroll {
-  transition: all .3s ease-in-out;
+.accordion__item_label--vertical {
+  display: flex;
 }
 
-.scroll__content {
-  padding: 10px 20px;
+.accordion__item_label--horizontal {
+  text-align: center !important;
 }
+
+.label__image {
+  display: inline-block !important;
+  width: 20px;
+  height: 20px;
+}
+
+.label__image--horizontal {
+  transform: rotate3d(0,0,1,180deg);
+}
+
+.label__image--vertical {
+  transform: rotate3d(0,0,1,90deg);
+}
+
+.label__image--horizontal.active {
+  transform: rotate3d(0,0,1,90deg);
+}
+
+.label__image--vertical.active {
+  transform: rotate3d(0,0,1,180deg);
+}
+
