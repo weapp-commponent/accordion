@@ -10,12 +10,12 @@
       bind:tap="check"
       data-index="{{index}}"
       style="width:{{accdionItem.label.width}}px; height:{{accdionItem.label.height}}px; background:{{accdionItem.background}}; transition:all {{durationTemp}}s ease-in-out;"
-      class="accordion__item_label {{direction === 'horizontal' ? 'accordion__item_label--horizontal' : 'accordion__item_label--vertical'}} label-class">
+      class="accordion__item_label {{direction === 'horizontal' ? 'accordion__item_label--horizontal' : 'accordion__item_label--vertical'}} {{currentIndexTemp == index ? 'active' : ''}} label-class">
       <text class="label__text">{{accdionItem.label.text}}</text>
       <cover-image
         src="{{arrowImg}}"
         style="transition:all {{durationTemp}}s ease-in-out;"
-        class="label__image {{direction === 'horizontal' ? 'label__image--horizontal' : 'label__image--vertical'}} {{currentIndexTemp == index ? 'active' : ''}}"></cover-image>
+        class="label__image {{direction === 'horizontal' ? 'label__image--horizontal arrow-horizontal' : 'label__image--vertical arrow-vertical'}} {{currentIndexTemp == index ? direction === 'horizontal'? 'arrow-horizontal-active' : 'arrow-vertical-active' : ''}}"></cover-image>
       <!-- <view class="label__icon"></view> -->
     </view>
     <!-- label E -->

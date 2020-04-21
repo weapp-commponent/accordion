@@ -6,7 +6,9 @@
   label-class="leabel"
   content-class="content"
   >
-      <!-- direction="horizontal" -->
+    <!-- direction="horizontal" -->
+    <!-- arrow-horizontal-active="arrow--active" -->
   </comp>
-  <view bind:tap="changeWidth">改变宽度</view>
-  <view bind:tap="changeHeight">改变高度</view>
+  <view style="margin-top:20px;"></view>
+  <button bind:tap="changeWidth">改变宽度</button>
+  <button bind:tap="changeHeight">改变高度</button>

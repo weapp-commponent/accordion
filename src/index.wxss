@@ -38,11 +38,11 @@
   transform: rotate3d(0,0,1,90deg);
 }
 
-.label__image--horizontal.active {
+.accordion__item_label.active .label__image--horizontal {
   transform: rotate3d(0,0,1,90deg);
 }
 
-.label__image--vertical.active {
+.accordion__item_label.active .label__image--vertical {
   transform: rotate3d(0,0,1,180deg);
 }
 

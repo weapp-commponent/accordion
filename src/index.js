@@ -5,7 +5,7 @@ Component({
   /**
    * 允许外部类名，开发者通过设置 以下几个类名 设置自己的样式覆盖组件默认样式
    */
-  externalClasses: ['label-class', 'content-class', 'arrow--horizontal', 'arrow--vertical', 'arrow__active'],
+  externalClasses: ['label-class', 'content-class', 'arrow-horizontal', 'arrow-vertical', 'arrow-horizontal-active', 'arrow-vertical-active'],
   properties: {
     list: {
       type: Array,
@@ -86,7 +86,7 @@ Component({
         const labelWidth = this.data.width
         const labelHeight = this.data.labelHeight
         this.setData({
-          contentHeight
+          contentHeight,
         })
         this.data.list.forEach((item, index) => {
           const colorItem = this.data.colorList[index % this.data.colorList.length]
