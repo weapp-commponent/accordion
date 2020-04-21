@@ -1,4 +1,4 @@
-<view style="width: {{width}}px; height: {{height}}px" class="accordion {{direction === 'horizontal' ? 'accordion--horizontal' : 'accordion--vertical'}}">
+<view style="width: {{accordionWidth}}px;" class="accordion {{direction === 'horizontal' ? 'accordion--horizontal' : 'accordion--vertical'}}">
   <view
     wx:for="{{accordionList}}"
     wx:key="index"
@@ -10,12 +10,12 @@
       bind:tap="check"
       data-index="{{index}}"
       style="width:{{accdionItem.label.width}}px; height:{{accdionItem.label.height}}px; background:{{accdionItem.background}}; transition:all {{durationTemp}}s ease-in-out;"
-      class="accordion__item_label {{direction === 'horizontal' ? 'accordion__item_label--horizontal' : 'accordion__item_label--vertical'}} {{currentIndexTemp == index ? 'active' : ''}} label-class">
+      class="accordion__item_label {{direction === 'horizontal' ? 'accordion__item_label--horizontal' : 'accordion__item_label--vertical'}} {{accdionItem.unfold ? 'active' : ''}} label-class">
       <text class="label__text">{{accdionItem.label.text}}</text>
       <cover-image
         src="{{arrowImg}}"
         style="transition:all {{durationTemp}}s ease-in-out;"
-        class="label__image {{direction === 'horizontal' ? 'label__image--horizontal arrow-horizontal' : 'label__image--vertical arrow-vertical'}} {{currentIndexTemp == index ? direction === 'horizontal'? 'arrow-horizontal-active' : 'arrow-vertical-active' : ''}}"></cover-image>
+        class="label__image {{direction === 'horizontal' ? 'label__image--horizontal arrow-horizontal' : 'label__image--vertical arrow-vertical'}} {{accdionItem.unfold ? direction === 'horizontal'? 'arrow-horizontal-active' : 'arrow-vertical-active' : ''}}"></cover-image>
       <!-- <view class="label__icon"></view> -->
     </view>
     <!-- label E -->

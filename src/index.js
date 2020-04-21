@@ -7,42 +7,99 @@ Component({
    */
   externalClasses: ['label-class', 'content-class', 'arrow-horizontal', 'arrow-vertical', 'arrow-horizontal-active', 'arrow-vertical-active'],
   properties: {
+    /**
+     * 列表数据
+     */
     list: {
       type: Array,
       value: []
     },
+    /**
+     * 布局模式
+     * vertical 垂直布局
+     * horizontal 横向布局
+     */
     direction: {
       type: String,
       value: 'vertical'
     },
+    /**
+     * 手风琴展开模式
+     * only 只能同时展开一个子项，其他为闭合状态
+     * all 能同时展开多个子项
+     */
+    collapseType: {
+      type: String,
+      value: 'only'
+    },
+    /**
+     * 手风琴宽度
+     */
     width: {
       type: Number,
       value: 320
     },
+    /**
+     * 手风琴高度
+     * 默认高度根据子项的高度自适应
+     * 注意：当设置了height之后，contentHeight将会失效，子项的高度将根据列表个数动态计算
+     */
     height: {
       type: Number,
-      value: 300
+      value: 0
     },
+    /**
+     * 内容部分高度
+     * 只对布局模式为垂直布局时起效
+     */
+    contentHeight: {
+      type: Number,
+      value: 200
+    },
+    /**
+     * label高度
+     * 只对布局模式为垂直布局时起效
+     */
     labelHeight: {
       type: Number,
       value: 40
     },
+    /**
+     * label宽度
+     * 只对布局模式为横向布局时起效
+     */
     labelWidth: {
       type: Number,
       value: 40
     },
+    /**
+     * 默认展开的子项下标
+     * 展开模式为only时，只有数组的第一个值有效
+     */
     currentIndex: {
-      type: String,
-      value: '0'
+      type: Array,
+      value: [0]
     },
+    /**
+     * 动画时间
+     * 单位：ms
+     */
     duration: {
       type: Number,
       value: 300
     },
+    /**
+     * 箭头图片资源路径
+     * 组件的相对路径，并不是引用这个组件的页面相对路径
+     */
     arrowImg: {
       type: String,
       value: './assets/arrow.png'
     },
+    /**
+     * 各个子项的颜色配置
+     * 如果颜色列表个数小于数据列表个数，那么，数据列表回循环使用这个颜色列表
+     */
     colorList: {
       type: Array,
       value: [
@@ -55,14 +112,16 @@ Component({
   },
   data: {
     accordionList: [],
-    contentHeight: 0,
-    contentWidth: 0,
-    currentIndexTemp: 0,
+    accordionWidth: 0,
+    accordionHeight: 0,
+    contentHeightTemp: 0,
+    contentWidthTemp: 0,
+    currentIndexTemp: [],
     durationTemp: 0
   },
   observers: {
-    'height, width': function () {
-      this.initItme()
+    'height, width, direction': function () {
+      this.initItem()
     }
   },
   lifetimes: {
@@ -77,21 +136,30 @@ Component({
         durationTemp,
         currentIndexTemp: this.data.currentIndex
       })
-      this.initItme()
+      this.onlyType()
+      this.initItem()
     },
-    initItme() {
+    initItem() {
       const list = []
+      const accordionWidth = this.data.width
+      const accordionHeight = this.data.height
+      this.setData({
+        accordionWidth,
+        accordionHeight,
+      })
       if (this.data.direction === 'vertical') {
-        const contentHeight = this.data.height - this.data.labelHeight * this.data.list.length
+        // eslint-disable-next-line
+        const contentHeightTemp = this.data.height ? this.data.height - this.data.labelHeight * this.data.list.length : this.data.contentHeight
+        // const contentHeightTemp = this.data.contentHeight
         const labelWidth = this.data.width
         const labelHeight = this.data.labelHeight
         this.setData({
-          contentHeight,
+          contentHeightTemp,
         })
         this.data.list.forEach((item, index) => {
           const colorItem = this.data.colorList[index % this.data.colorList.length]
           // eslint-disable-next-line
-          if (index == this.data.currentIndexTemp) {
+          if (this.data.currentIndexTemp.includes(index)) {
             list.push({
               label: {
                 text: item.label,
@@ -100,9 +168,10 @@ Component({
               },
               content: {
                 text: item.content,
-                width: this.data.width,
-                height: this.data.contentHeight,
+                width: accordionWidth,
+                height: this.data.contentHeightTemp,
               },
+              unfold: true,
               background: colorItem.background,
               color: colorItem.color,
             })
@@ -115,25 +184,26 @@ Component({
               },
               content: {
                 text: item.content,
-                width: this.data.width,
+                width: accordionWidth,
                 height: 0,
               },
+              unfold: false,
               background: colorItem.background,
               color: colorItem.color,
             })
           }
         })
       } else {
-        const contentWidth = this.data.width - this.data.labelWidth * this.data.list.length
+        const contentWidthTemp = this.data.width - this.data.labelWidth * this.data.list.length
         const labelWidth = this.data.labelWidth
         const labelHeight = this.data.height
         this.setData({
-          contentWidth,
+          contentWidthTemp,
         })
         this.data.list.forEach((item, index) => {
           const colorItem = this.data.colorList[index % this.data.colorList.length]
           // eslint-disable-next-line
-          if (index == this.data.currentIndexTemp) {
+          if (this.data.currentIndexTemp[0] == index) {
             list.push({
               label: {
                 text: item.label,
@@ -142,9 +212,10 @@ Component({
               },
               content: {
                 text: item.content,
-                width: this.data.contentWidth,
-                height: this.data.height,
+                width: contentWidthTemp,
+                height: accordionHeight,
               },
+              unfold: true,
               background: colorItem.background,
               color: colorItem.color,
             })
@@ -158,8 +229,9 @@ Component({
               content: {
                 text: item.content,
                 width: 0,
-                height: this.data.height,
+                height: accordionHeight,
               },
+              unfold: false,
               background: colorItem.background,
               color: colorItem.color,
             })
@@ -170,16 +242,60 @@ Component({
         accordionList: list
       })
     },
+    /**
+     * 单条展开模式对currentIndexTemp进行处理
+     */
+    onlyType() {
+      if (this.data.collapseType === 'only') {
+        const indexArr = this.data.currentIndexTemp.slice(0, 1)
+        this.setData({
+          currentIndexTemp: indexArr
+        })
+      }
+    },
     check(e) {
       const direction = this.data.direction === 'vertical'
       const index = e.currentTarget.dataset.index
-      const oldKey = 'accordionList[' + this.data.currentIndexTemp + '].content.' + (direction ? 'height' : 'width')
-      const nowKey = 'accordionList[' + index + '].content.' + (direction ? 'height' : 'width')
-      this.setData({
-        [oldKey]: 0,
-        [nowKey]: direction ? this.data.contentHeight : this.data.contentWidth,
-        currentIndexTemp: index
-      })
+      if (direction) {
+        if (this.data.collapseType === 'only') {
+          const oldKey = 'accordionList[' + this.data.currentIndexTemp[0] + '].content.height'
+          const oldKeyUnfold = 'accordionList[' + this.data.currentIndexTemp[0] + '].unfold'
+          const nowKey = 'accordionList[' + index + '].content.height'
+          const nowKeyUnfold = 'accordionList[' + index + '].unfold'
+          this.setData({
+            [oldKey]: 0,
+            [nowKey]: direction ? this.data.contentHeightTemp : this.data.contentWidthTemp,
+            [oldKeyUnfold]: false,
+            [nowKeyUnfold]: true,
+            currentIndexTemp: [index]
+          })
+        } else if (this.data.collapseType === 'all') {
+          const indexArr = this.data.currentIndexTemp
+          if (!this.data.currentIndexTemp.includes(index)) {
+            indexArr.push(index)
+          }
+          const nowKey = 'accordionList[' + index + '].content.height'
+          const nowKeyUnfold = 'accordionList[' + index + '].unfold'
+          const nowUnfold = this.data.accordionList[index].unfold
+          this.setData({
+            [nowKey]: nowUnfold ? 0 : this.data.contentHeightTemp,
+            [nowKeyUnfold]: !nowUnfold,
+            currentIndexTemp: indexArr
+          })
+        }
+      } else {
+        const oldKey = 'accordionList[' + this.data.currentIndexTemp[0] + '].content.width'
+        const oldKeyUnfold = 'accordionList[' + this.data.currentIndexTemp[0] + '].unfold'
+        const nowKey = 'accordionList[' + index + '].content.width'
+        const nowKeyUnfold = 'accordionList[' + index + '].unfold'
+        this.setData({
+          [oldKey]: 0,
+          [oldKeyUnfold]: false,
+          [nowKey]: this.data.contentWidthTemp,
+          [nowKeyUnfold]: true,
+          currentIndexTemp: [index]
+        })
+      }
     }
   }
 })

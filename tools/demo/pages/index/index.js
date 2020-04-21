@@ -2,6 +2,7 @@ Page({
   data: {
     width: 320,
     height: 300,
+    direction: 'vertical',
     list: [
       {
         label: '第yi条',
@@ -38,7 +39,12 @@ Page({
   },
   changeHeight() {
     this.setData({
-      height: 500
+      height: this.data.height == 500 ? 300 : 500
+    })
+  },
+  changeDirection() {
+    this.setData({
+      direction: this.data.direction === 'horizontal' ? 'vertical' : 'horizontal'
     })
   }
 })

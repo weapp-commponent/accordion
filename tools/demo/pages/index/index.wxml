@@ -1,4 +1,5 @@
 <comp
+  direction="{{direction}}"
   list="{{list}}"
   width="{{width}}"
   height="{{height}}"
@@ -8,7 +9,11 @@
   >
     <!-- direction="horizontal" -->
     <!-- arrow-horizontal-active="arrow--active" -->
+    <!-- collapseType="all" -->
   </comp>
-  <view style="margin-top:20px;"></view>
-  <button bind:tap="changeWidth">改变宽度</button>
-  <button bind:tap="changeHeight">改变高度</button>
+  <view style="margin-top:20px;">
+    <button bind:tap="changeWidth">改变宽度</button>
+    <button bind:tap="changeHeight">改变高度</button>
+    <button bind:tap="changeDirection">改变布局</button>
+  </view>
+
