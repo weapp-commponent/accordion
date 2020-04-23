@@ -1,9 +1,12 @@
 <comp
   direction="{{direction}}"
+  collapseType="all"
   list="{{list}}"
   width="{{width}}"
   height="{{height}}"
   colorList="{{colorList}}"
+  currentIndex="{{[0,1]}}"
+  arrowImg="./assets/arrow.png"
   label-class="leabel"
   content-class="content"
   >
@@ -12,8 +15,8 @@
     <!-- collapseType="all" -->
   </comp>
   <view style="margin-top:20px;">
-    <button bind:tap="changeWidth">改变宽度</button>
-    <button bind:tap="changeHeight">改变高度</button>
-    <button bind:tap="changeDirection">改变布局</button>
+    <!-- <button bind:tap="changeWidth">改变宽度</button> -->
+    <!-- <button bind:tap="changeHeight">改变高度</button> -->
+    <!-- <button bind:tap="changeDirection">改变布局</button> -->
   </view>
 

@@ -1,11 +1,13 @@
 .leabel {
   padding: 10px;
-  color: blue;
+  color: #666;
 }
 
 .content {
-  padding: 10px;
-  color: brown;
+  padding: 10px 20px;
+  line-height: 30px;
+  font-size: 14px;
+  color: red;
 }
 
 .arrow--active {

@@ -24,6 +24,17 @@
   text-align: center !important;
 }
 
+.accordion--vertical .label__text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.accordion--horizontal .label__text {
+  overflow: hidden;
+  word-break: break-word;
+  /* text-overflow: ellipsis; */
+}
+
 .label__image {
   display: inline-block !important;
   width: 20px;

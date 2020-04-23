@@ -27,6 +27,7 @@ Component({
      * 手风琴展开模式
      * only 只能同时展开一个子项，其他为闭合状态
      * all 能同时展开多个子项
+     * 注意：对于布局模式为horizontal横向布局时，该选项无效，只有only模式
      */
     collapseType: {
       type: String,
@@ -94,7 +95,7 @@ Component({
      */
     arrowImg: {
       type: String,
-      value: './assets/arrow.png'
+      value: ''
     },
     /**
      * 各个子项的颜色配置

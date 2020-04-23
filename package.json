@@ -1,7 +1,7 @@
 {
-  "name": "accordion",
+  "name": "miniprogram-accordion",
   "version": "1.0.0",
-  "description": "",
+  "description": "微信小程序手风琴效果组件",
   "main": "miniprogram_dist/index.js",
   "scripts": {
     "dev": "gulp dev --develop",

@@ -11,8 +11,11 @@
       data-index="{{index}}"
       style="width:{{accdionItem.label.width}}px; height:{{accdionItem.label.height}}px; background:{{accdionItem.background}}; transition:all {{durationTemp}}s ease-in-out;"
       class="accordion__item_label {{direction === 'horizontal' ? 'accordion__item_label--horizontal' : 'accordion__item_label--vertical'}} {{accdionItem.unfold ? 'active' : ''}} label-class">
-      <text class="label__text">{{accdionItem.label.text}}</text>
+      <view
+        style="{{direction === 'horizontal' ? 'height:'+ 3* accordionHeight / 4 +'px' : ''}}"
+        class="label__text">{{accdionItem.label.text}}</view>
       <cover-image
+        wx:if="{{arrowImg}}"
         src="{{arrowImg}}"
         style="transition:all {{durationTemp}}s ease-in-out;"
         class="label__image {{direction === 'horizontal' ? 'label__image--horizontal arrow-horizontal' : 'label__image--vertical arrow-vertical'}} {{accdionItem.unfold ? direction === 'horizontal'? 'arrow-horizontal-active' : 'arrow-vertical-active' : ''}}"></cover-image>
@@ -27,7 +30,7 @@
       >
       <view
         class="scroll__content content-class">
-        {{accdionItem.content.text}}
+        <rich-text nodes="{{accdionItem.content.text}}"></rich-text>
       </view>
       </scroll-view>
   </view>
